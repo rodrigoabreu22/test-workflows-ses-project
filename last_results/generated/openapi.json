@@ -1,0 +1,1020 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Pizzagate API",
+    "description": "REST API for the Pizzagate pizzeria-catalogue platform.\n\n**Authentication:** write operations (POST, PUT, DELETE) require a bearer JWT issued by the Keycloak identity provider. GET endpoints are public and do not require a token.\n\n**Authorisation:** object-level ownership is enforced server-side. A PIZZERIA_OWNER may only mutate their own pizzeria and its pizzas; PIZZERIA_STAFF may only mutate pizzas of their assigned pizzeria; ADMIN is unrestricted.",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://host.docker.internal:8080"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Pizzas",
+      "description": "CRUD operations for pizzas"
+    },
+    {
+      "name": "Pizzerias",
+      "description": "CRUD operations for pizzerias"
+    }
+  ],
+  "paths": {
+    "/api/pizzerias/{id}": {
+      "get": {
+        "tags": [
+          "Pizzerias"
+        ],
+        "summary": "Get a pizzeria by ID",
+        "operationId": "findById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pizzeria identifier",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pizzeria found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PizzeriaResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pizzeria not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pizzerias"
+        ],
+        "summary": "Update a pizzeria",
+        "description": "Updates an existing pizzeria by its ID.",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pizzeria identifier",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "description": "Pizzeria data to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzeriaRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Pizzeria updated successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PizzeriaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload or database constraint violation",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid bearer token provided",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not the owner of this pizzeria",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pizzeria not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Pizzerias"
+        ],
+        "summary": "Delete a pizzeria",
+        "description": "Deletes a pizzeria and its pizzas (cascade delete).",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pizzeria identifier",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Pizzeria deleted successfully"
+          },
+          "401": {
+            "description": "No valid bearer token provided",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not the owner of this pizzeria",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pizzeria not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/pizzerias/{id}/staff": {
+      "put": {
+        "tags": [
+          "Pizzerias"
+        ],
+        "summary": "Replace pizzeria staff",
+        "description": "Replaces the set of staff subjects allowed to manage this pizzeria's pizzas. Owner/admin only.",
+        "operationId": "updateStaff",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pizzeria identifier",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "description": "Staff subjects to assign to this pizzeria",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzeriaStaffRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Staff updated successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PizzeriaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid bearer token provided",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not the owner of this pizzeria",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pizzeria not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/pizzas/{id}": {
+      "get": {
+        "tags": [
+          "Pizzas"
+        ],
+        "summary": "Get a pizza by ID",
+        "operationId": "findById_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pizza identifier",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pizza found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PizzaResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pizza not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Pizzas"
+        ],
+        "summary": "Update a pizza",
+        "description": "Updates an existing pizza by its ID.",
+        "operationId": "update_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pizza identifier",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "requestBody": {
+          "description": "Pizza data to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzaRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Pizza updated successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PizzaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload or database constraint violation",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid bearer token provided",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not the owner or staff of the associated pizzeria",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pizza or referenced pizzeria not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Pizzas"
+        ],
+        "summary": "Delete a pizza",
+        "description": "Deletes a pizza by its ID.",
+        "operationId": "delete_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Pizza identifier",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Pizza deleted successfully"
+          },
+          "401": {
+            "description": "No valid bearer token provided",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not the owner or staff of the associated pizzeria",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pizza not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/pizzerias": {
+      "get": {
+        "tags": [
+          "Pizzerias"
+        ],
+        "summary": "List pizzerias",
+        "description": "Returns a page of pizzerias.",
+        "operationId": "findAll",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pizzerias retrieved successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PizzeriaResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Pizzerias"
+        ],
+        "summary": "Create a pizzeria",
+        "operationId": "create",
+        "requestBody": {
+          "description": "Pizzeria data to create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzeriaRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Pizzeria created successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PizzeriaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload or database constraint violation",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid bearer token provided",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller does not have the PIZZERIA_OWNER role",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/pizzas": {
+      "get": {
+        "tags": [
+          "Pizzas"
+        ],
+        "summary": "List pizzas",
+        "description": "Returns a page of pizzas. Optionally filter results by pizzeria ID.",
+        "operationId": "findAll_1",
+        "parameters": [
+          {
+            "name": "pizzeriaId",
+            "in": "query",
+            "description": "Filter pizzas by pizzeria ID",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pizzas retrieved successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PizzaResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query parameter",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Pizzas"
+        ],
+        "summary": "Create a pizza",
+        "description": "Creates a pizza and associates it with an existing pizzeria.",
+        "operationId": "create_1",
+        "requestBody": {
+          "description": "Pizza data to create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PizzaRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Pizza created successfully",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PizzaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload or database constraint violation",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid bearer token provided",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Caller is not the owner or staff of the target pizzeria",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Referenced pizzeria not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PizzeriaRequest": {
+        "type": "object",
+        "description": "Payload used to create or update a pizzeria",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Pizzeria name",
+            "example": "Napoli Centrale",
+            "maxLength": 150,
+            "minLength": 0
+          },
+          "address": {
+            "type": "string",
+            "description": "Street address",
+            "example": 123,
+            "maxLength": 255,
+            "minLength": 0
+          },
+          "phone": {
+            "type": "string",
+            "description": "Contact phone number",
+            "example": "+351912345678",
+            "maxLength": 30,
+            "minLength": 0
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "PizzeriaResponse": {
+        "type": "object",
+        "description": "Pizzeria resource returned by the API",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Pizzeria identifier",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Pizzeria name",
+            "example": "Napoli Centrale"
+          },
+          "address": {
+            "type": "string",
+            "description": "Street address",
+            "example": 123
+          },
+          "phone": {
+            "type": "string",
+            "description": "Contact phone number",
+            "example": "+351912345678"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp",
+            "example": "2026-02-23T10:45:12"
+          },
+          "canEdit": {
+            "type": "boolean",
+            "description": "Whether the current caller may update or delete this pizzeria"
+          },
+          "staffSubjects": {
+            "type": "array",
+            "description": "Subjects allowed to manage this pizzeria's pizzas (only visible to the owner/admin)",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          }
+        }
+      },
+      "ApiErrorResponse": {
+        "type": "object",
+        "description": "Standard error response returned by the API",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Time when the error was generated",
+            "example": "2026-02-23T10:45:12.345"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "HTTP status code",
+            "example": 400
+          },
+          "error": {
+            "type": "string",
+            "description": "HTTP status reason phrase",
+            "example": "Bad Request"
+          },
+          "message": {
+            "type": "string",
+            "description": "Application error message or validation details",
+            "example": "name: must not be blank"
+          }
+        }
+      },
+      "PizzeriaStaffRequest": {
+        "type": "object",
+        "description": "Payload used to replace the set of staff subjects for a pizzeria",
+        "properties": {
+          "staffSubjects": {
+            "type": "array",
+            "description": "Subjects (Keycloak usernames) allowed to manage this pizzeria's pizzas",
+            "example": [
+              "staff-a"
+            ],
+            "items": {
+              "type": "string",
+              "maxLength": 120,
+              "minLength": 0
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "staffSubjects"
+        ]
+      },
+      "PizzaRequest": {
+        "type": "object",
+        "description": "Payload used to create or update a pizza",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Pizza name",
+            "example": "Margherita",
+            "maxLength": 150,
+            "minLength": 0
+          },
+          "ingredients": {
+            "type": "string",
+            "description": "Ingredient list or description",
+            "example": "Tomato, mozzarella, basil",
+            "maxLength": 800,
+            "minLength": 0
+          },
+          "pizzeriaId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID of the pizzeria that owns this pizza",
+            "example": 1
+          },
+          "price": {
+            "type": "number",
+            "description": "Price in euros/dollars (2 decimal places)",
+            "example": 12.5,
+            "minimum": 0.0
+          },
+          "size": {
+            "type": "string",
+            "description": "Pizza size",
+            "enum": [
+              "small",
+              "medium",
+              "large"
+            ],
+            "example": "medium"
+          },
+          "isAvailable": {
+            "type": "boolean",
+            "description": "Whether the pizza is available for ordering",
+            "example": true
+          },
+          "photoUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Photo URL for display purposes",
+            "example": "https://example.com/pizzas/margherita.jpg",
+            "maxLength": 2048,
+            "minLength": 0,
+            "pattern": "^(https://.*)?$"
+          }
+        },
+        "required": [
+          "name",
+          "pizzeriaId",
+          "price",
+          "size"
+        ]
+      },
+      "PizzaResponse": {
+        "type": "object",
+        "description": "Pizza resource returned by the API",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Pizza identifier",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Pizza name",
+            "example": "Margherita"
+          },
+          "ingredients": {
+            "type": "string",
+            "description": "Ingredient list or description",
+            "example": "Tomato, mozzarella, basil"
+          },
+          "pizzeriaId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Owning pizzeria identifier",
+            "example": 1
+          },
+          "price": {
+            "type": "number",
+            "description": "Price",
+            "example": 12.5
+          },
+          "size": {
+            "type": "string",
+            "description": "Pizza size",
+            "enum": [
+              "small",
+              "medium",
+              "large"
+            ],
+            "example": "medium"
+          },
+          "isAvailable": {
+            "type": "boolean",
+            "description": "Whether the pizza is available",
+            "example": true
+          },
+          "photoUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Photo URL",
+            "example": "https://example.com/pizzas/margherita.jpg"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Creation timestamp",
+            "example": "2026-02-23T10:45:12"
+          },
+          "canEdit": {
+            "type": "boolean",
+            "description": "Whether the current caller may update or delete this pizza"
+          }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 1
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

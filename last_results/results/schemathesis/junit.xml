@@ -1,0 +1,2324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites disabled="0" errors="0" failures="12" tests="12" time="142.92829984800113">
+	<testsuite disabled="0" errors="0" failures="12" name="schemathesis" skipped="1" tests="12" time="142.92829984800113" hostname="347ec15dabfd">
+		<testcase name="POST /api/pizzas" time="7.785895">
+			<failure type="failure" message="1. Test Case ID: sCPKed
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: true, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas"/>
+			<failure type="failure" message="1. Test Case ID: sCPKed
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: true, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas"/>
+			<failure type="failure" message="1. Test Case ID: sCPKed
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: true, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas
+
+2. Test Case ID: SxeNje
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[400] Bad Request:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:22:04.739Z&quot;,&quot;status&quot;:400,&quot;error&quot;:&quot;Bad Request&quot;,&quot;path&quot;:&quot;/api/pizzas&quot;}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ëI!ä' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;&quot;, &quot;pizzeriaId&quot;: 0, &quot;price&quot;: 0.0, &quot;size&quot;: &quot;large&quot;}' http://host.docker.internal:8080/api/pizzas
+
+3. Test Case ID: coeEMI
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 201, 400, 401, 403, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:22:05.909Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas&quot;}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;\u0001\u00c5\u00b5\ud8c0\ude29&quot;, &quot;pizzeriaId&quot;: 0, &quot;price&quot;: 0.0, &quot;size&quot;: &quot;large&quot;}' http://host.docker.internal:8080/api/pizzas
+
+4. Test Case ID: AndO9N
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: parameter `Authorization` in header - violates `format` (_bearer_auth)
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:22:06.046Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas&quot;}`
+
+Reproduce with:
+
+    curl -X POST -H '6IW8: : O' -H '-|ZQ9*Lz5;' -H 'LN+rj: a}K+G' -H 'Content-Type: application/json' -d -4769606235850749.0 http://host.docker.internal:8080/api/pizzas"/>
+		</testcase>
+		<testcase name="POST /api/pizzerias" time="11.145170">
+			<failure type="failure" message="1. Test Case ID: kPFDsg
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;+351912345678&quot;}' http://host.docker.internal:8080/api/pizzerias"/>
+			<failure type="failure" message="1. Test Case ID: kPFDsg
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;+351912345678&quot;}' http://host.docker.internal:8080/api/pizzerias
+
+2. Test Case ID: 8F5eUs
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 201, 400, 401, 403
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:49.634Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias&quot;}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123}' http://host.docker.internal:8080/api/pizzerias"/>
+			<failure type="failure" message="1. Test Case ID: kPFDsg
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;+351912345678&quot;}' http://host.docker.internal:8080/api/pizzerias
+
+2. Test Case ID: 8F5eUs
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 201, 400, 401, 403
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:49.634Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias&quot;}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123}' http://host.docker.internal:8080/api/pizzerias
+
+3. Test Case ID: uIX9YA
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: parameter `Authorization` in header - required property removed
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:22:12.198Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias&quot;}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '[]' http://host.docker.internal:8080/api/pizzerias
+
+4. Test Case ID: eF99Ix
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[400] Bad Request:
+
+    `&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;title&gt;HTTP Status 400 – Bad Request&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;HTTP Status 400 – Bad Request&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;`
+
+Reproduce with:
+
+    curl -X POST -H $'Authorization: Bearer êSóbs\x1c\x7f\$\x04' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;&quot;}' http://host.docker.internal:8080/api/pizzerias
+    
+    ⚠️  Header 'Authorization' contains non-printable characters. Actual value: b'Authorization: Bearer \xc3\xaaS\xc3\xb3bs\x1c\x7f$\x04'"/>
+		</testcase>
+		<testcase name="GET /api/pizzerias" time="10.310184">
+			<failure type="failure" message="1. Test Case ID: nY5yDr
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:49.715Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias&quot;}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias
+
+2. Test Case ID: WBDlsp
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:49.782Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias&quot;}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzerias?pageable=page&amp;pageable=size&amp;pageable=sort'"/>
+			<failure type="failure" message="1. Test Case ID: nY5yDr
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:49.715Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias&quot;}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias
+
+2. Test Case ID: WBDlsp
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:49.782Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias&quot;}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzerias?pageable=page&amp;pageable=size&amp;pageable=sort'"/>
+			<skipped type="skipped">No examples in schema</skipped>
+		</testcase>
+		<testcase name="PUT /api/pizzas/{id}" time="10.093053">
+			<failure type="failure" message="1. Test Case ID: fVZxAc
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: true, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas/1"/>
+			<failure type="failure" message="1. Test Case ID: fVZxAc
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: true, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas/1
+
+2. Test Case ID: 43tqEL
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: Missing `Authorization` at header
+
+- Missing header not rejected
+
+    Got 429 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 400, 401, 403, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:56.097Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas/1&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: true, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas/1
+
+3. Test Case ID: 9u3Wzp
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:56.294Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas/1&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: false, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas/1"/>
+			<failure type="failure" message="1. Test Case ID: fVZxAc
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: true, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas/1
+
+2. Test Case ID: 43tqEL
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: Missing `Authorization` at header
+
+- Missing header not rejected
+
+    Got 429 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 400, 401, 403, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:56.097Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas/1&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: true, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas/1
+
+3. Test Case ID: 9u3Wzp
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:56.294Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas/1&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 12.5, &quot;size&quot;: &quot;medium&quot;, &quot;isAvailable&quot;: false, &quot;photoUrl&quot;: &quot;https://example.com/pizzas/margherita.jpg&quot;}' http://host.docker.internal:8080/api/pizzas/1
+
+4. Test Case ID: ePEYcr
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[400] Bad Request:
+
+    `&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;title&gt;HTTP Status 400 – Bad Request&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;HTTP Status 400 – Bad Request&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;`
+
+Reproduce with:
+
+    curl -X PUT -H $'Authorization: Bearer \x15ªî¢î' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Margherita&quot;, &quot;pizzeriaId&quot;: 1, &quot;price&quot;: 8.9, &quot;size&quot;: &quot;medium&quot;}' http://host.docker.internal:8080/api/pizzas/1
+    
+    ⚠️  Header 'Authorization' contains non-printable characters. Actual value: b'Authorization: Bearer \x15\xc2\xaa\xc3\xae\xc2\xa2\xc3\xae'"/>
+		</testcase>
+		<testcase name="PUT /api/pizzerias/{id}" time="14.746493">
+			<failure type="failure" message="1. Test Case ID: WN86JL
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;+351912345678&quot;}' http://host.docker.internal:8080/api/pizzerias/1"/>
+			<failure type="failure" message="1. Test Case ID: WN86JL
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;+351912345678&quot;}' http://host.docker.internal:8080/api/pizzerias/1
+
+2. Test Case ID: SskAKj
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: Missing `Authorization` at header
+
+- Missing header not rejected
+
+    Got 429 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 400, 401, 403, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:57.711Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;+351912345678&quot;}' http://host.docker.internal:8080/api/pizzerias/1
+
+3. Test Case ID: XjpVkz
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:57.800Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;00000000000000000000000000000&quot;}' http://host.docker.internal:8080/api/pizzerias/1"/>
+			<failure type="failure" message="1. Test Case ID: WN86JL
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;+351912345678&quot;}' http://host.docker.internal:8080/api/pizzerias/1
+
+2. Test Case ID: SskAKj
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: Missing `Authorization` at header
+
+- Missing header not rejected
+
+    Got 429 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 400, 401, 403, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:57.711Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;+351912345678&quot;}' http://host.docker.internal:8080/api/pizzerias/1
+
+3. Test Case ID: XjpVkz
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:57.800Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centrale&quot;, &quot;address&quot;: 123, &quot;phone&quot;: &quot;00000000000000000000000000000&quot;}' http://host.docker.internal:8080/api/pizzerias/1
+
+4. Test Case ID: pi4wpQ
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+    Hint: The request body contains 3 additional properties not defined in the schema (`6CU`, `ä÷·~Çï󩉄`, `򍟤¥`). The server likely rejects unexpected fields. Add `additionalProperties: false` to your schema to prevent this.
+
+[400] Bad Request:
+
+    `&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;title&gt;HTTP Status 400 – Bad Request&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;HTTP Status 400 – Bad Request&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;`
+
+Reproduce with:
+
+    curl -X PUT -H $'Authorization: Bearer S2¥ãð£\x1aAôiö÷ëôË½Õ3¶µ&quot;8óê\\p;' -H 'Content-Type: application/json' -d '{&quot;name&quot;: &quot;Napoli Centro&quot;, &quot;\ud9f5\udfe4\u00a5&quot;: [&quot;\u00ee\u009b\ud810\udca8\u00f2\u00f0\u00c6a\u0097&quot;, false, []], &quot;\u00e4\u00f7\b\u00b7~\b\u00c7\u00ef\udb64\ude44&quot;: [[], {&quot;\udb4b\udf9c\udbdc\udff5P&quot;: 1.365424307442723e+303, &quot;E&quot;: 3.473213658914208e+16, &quot;\u00cd\u00c3\u00c1&quot;: [[&quot;\u00fb\u00da\u00b9V4&quot;, -29040]]}, [{&quot;K\u0082(\r&quot;: &quot;\udbcf\ude3f\ud8ba\udd7d\ud8f4\udc6c\ud987\ude3f\ud974\uddf1\u00f7Y\udbaa\udf3e\u0006&quot;}, [], {&quot;+|\ud897\udcc10\u0001vT\u009e\ud9e7\ude6f\u00b8&quot;: [null, 45128655, &quot;\n&quot;]}]], &quot;6CU&quot;: []}' http://host.docker.internal:8080/api/pizzerias/1
+    
+    ⚠️  Header 'Authorization' contains non-printable characters. Actual value: b'Authorization: Bearer S2\xc2\xa5\xc2\x95\xc3\xa3\xc3\xb0\xc2\xa3\x1aA\xc2\x93\xc3\xb4i\xc3\xb6\xc3\xb7\xc3\xab\xc3\xb4\xc3\x8b\xc2\xbd\xc3\x953\xc2\xb6\xc2\xb5&quot;\xc2\x88\xc2\x8f8\xc3\xb3\xc2\x98\xc3\xaa\\p;'"/>
+		</testcase>
+		<testcase name="PUT /api/pizzerias/{id}/staff" time="11.238565">
+			<failure type="failure" message="1. Test Case ID: OYfT7s
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;staffSubjects&quot;: [&quot;staff-a&quot;]}' http://host.docker.internal:8080/api/pizzerias/1/staff"/>
+			<failure type="failure" message="1. Test Case ID: OYfT7s
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;staffSubjects&quot;: [&quot;staff-a&quot;]}' http://host.docker.internal:8080/api/pizzerias/1/staff
+
+2. Test Case ID: ZkB1HC
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: Missing `Authorization` at header
+
+- Missing header not rejected
+
+    Got 429 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 400, 401, 403, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:59.178Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1/staff&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Content-Type: application/json' -d '{&quot;staffSubjects&quot;: [&quot;staff-a&quot;]}' http://host.docker.internal:8080/api/pizzerias/1/staff
+
+3. Test Case ID: WGKIng
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:59.253Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1/staff&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;staffSubjects&quot;: [&quot;00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;]}' http://host.docker.internal:8080/api/pizzerias/1/staff"/>
+			<failure type="failure" message="1. Test Case ID: OYfT7s
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;staffSubjects&quot;: [&quot;staff-a&quot;]}' http://host.docker.internal:8080/api/pizzerias/1/staff
+
+2. Test Case ID: ZkB1HC
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: Missing `Authorization` at header
+
+- Missing header not rejected
+
+    Got 429 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 400, 401, 403, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:59.178Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1/staff&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Content-Type: application/json' -d '{&quot;staffSubjects&quot;: [&quot;staff-a&quot;]}' http://host.docker.internal:8080/api/pizzerias/1/staff
+
+3. Test Case ID: WGKIng
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:59.253Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1/staff&quot;}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: Bearer ' -H 'Content-Type: application/json' -d '{&quot;staffSubjects&quot;: [&quot;00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;]}' http://host.docker.internal:8080/api/pizzerias/1/staff
+
+4. Test Case ID: dBBTKp
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+    Hint: The request body contains 3 additional properties not defined in the schema (`&gt;X`, `!çsT¦¨·a÷`, `󔎍󨔌ÓâN5Þ񉽏`). The server likely rejects unexpected fields. Add `additionalProperties: false` to your schema to prevent this.
+
+[400] Bad Request:
+
+    `&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;title&gt;HTTP Status 400 – Bad Request&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;HTTP Status 400 – Bad Request&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;`
+
+Reproduce with:
+
+    curl -X PUT -H $'Authorization: Bearer \x10' -H 'Content-Type: application/json' -d '{&quot;staffSubjects&quot;: [&quot;+\u00c5\u00e2&quot;, &quot;\u00aa&quot;, &quot;&quot;, &quot;__main__&quot;], &quot;\u0014&gt;\u008aX&quot;: {&quot;\ud9dd\udd4f@\u007f\u00fb\u00c9\u00c1\u001d\ud9a7\udfe3:\u00cb\u00e3&quot;: -6.658363807111097e+16}, &quot;!\u00e7sT\u00a6\u00a8\u00b7a\u00f7&quot;: {&quot;T\u0011&quot;: {&quot;\u00ea\u00b1\ud90e\udff4&quot;: true, &quot;none&quot;: [null]}, &quot;&quot;: {&quot;\u00a8\u0004\ud9c3\udca0\u00c2\u0083\u00e0\udab0\udfe0\ud9fc\udded\u00bb!Kfz\u00f9&quot;: {&quot;&quot;: &quot;__main__&quot;, &quot;\u00c82\u00f9q&quot;: true}, &quot;\u001f\ud88d\udf04\uda05\udfba\u00be\u00e3\f\u001b\\\ud902\udf5c\udbe2\udcc7\u0013h\u00af\udaa1\ude2a\u00e6\ud970\udd97&quot;: [null, null, 296673167134161], &quot;_~\u001fj&quot;: {&quot;\ud9a9\ude26\u00ff&quot;: &quot;\u023a&quot;, &quot;_\u0089&quot;: 4728}}, &quot;\u00c8\u0006=&quot;: {&quot;\u0015\ud842\udded%\u00d5\u00b5\u00fd\u00b9\u00de\u00e1\ud973\ude5b\u000f\ud824\udffd\u0090fA\u00f8\u008a\u00c0\u00cc&amp;\u00c6&quot;: 1.01894079259087e+16, &quot;5f\udb1f\ude25&quot;: [160, true, &quot;G_?&quot;], &quot;\u0090c\u00ad\u008by\u0086\u008e&quot;: &quot;A&quot;}}, &quot;\udb10\udf8d\udb61\udd0c\u00d3\u00e2N5\u00de\ud8e7\udf4f&quot;: [{&quot;\u00f6\u00a9C\u00b5\u0017\ud889\udfaad\u00b7(\u00ed\u00f4~\u0080&quot;: {}, &quot;(\ud980\udef1{J\u00fb&quot;: [], &quot;\u00a7\u000f\udbd9\uddd1\ud90e\udfa1\u00ee&quot;: {&quot;\u00f7&quot;: &quot;/X\udbcc\udfe4\u0089D&quot;, &quot;lorem \u0644\u0627 \u0628\u0633\u0645 \u0627\u0644\u0644\u0647 ipsum \u4f60\u597d1234\u4f60\u597d&quot;: &quot;\uda2f\udfc1\u00e2\u00c8&quot;}}, null, null]}' http://host.docker.internal:8080/api/pizzerias/1/staff
+    
+    ⚠️  Header 'Authorization' contains non-printable characters. Actual value: b'Authorization: Bearer \x10'"/>
+		</testcase>
+		<testcase name="GET /api/pizzas" time="9.015076">
+			<failure type="failure" message="1. Test Case ID: Ngza6v
+
+- Response violates schema
+
+    {&quot;content&quot;:[{&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:1,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;isAvailable&quot;:true,&quot;name&quot;:&quot;Margherita&quot;,&quot;photoUrl&quot;:null,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.9,&quot;size&quot;:&quot;medium&quot;},{&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:2,&quot;ingredients&quot;:&quot;Ham, mozzarella, mushrooms&quot;,&quot;isAvailable&quot;:true,&quot;name&quot;:&quot;Calzone Classico&quot;,&quot;photoUrl&quot;:null,&quot;pizzeriaId&quot;:1,&quot;price&quot;:10.5,&quot;size&quot;:&quot;large&quot;}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:2,&quot;pageable&quot;:{&quot;offset&quot;:0,&quot;pageNumber&quot;:0,&quot;pageSize&quot;:20,&quot;paged&quot;:true,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;unpaged&quot;:false},&quot;size&quot;:20,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;totalElements&quot;:2,&quot;totalPages&quot;:1} is not of type &quot;array&quot;
+
+    Schema:
+
+        {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/PizzaResponse&quot;
+            },
+            &quot;components&quot;: {
+                &quot;schemas&quot;: {
+                    &quot;PizzaResponse&quot;: {
+                        &quot;type&quot;: &quot;object&quot;,
+                        &quot;description&quot;: &quot;Pizza resource returned by the API&quot;,
+                        &quot;properties&quot;: {
+                            &quot;id&quot;: {
+                                &quot;type&quot;: &quot;integer&quot;,
+                                &quot;format&quot;: &quot;int64&quot;,
+                                &quot;description&quot;: &quot;Pizza identifier&quot;,
+                                &quot;example&quot;: 1
+                            },
+                            &quot;name&quot;: {
+                                &quot;type&quot;: &quot;string&quot;,
+            // Output truncated...
+        }
+
+    Value:
+
+        {
+            &quot;content&quot;: [
+                {
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 1,
+                    &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;,
+                    &quot;isAvailable&quot;: true,
+                    &quot;name&quot;: &quot;Margherita&quot;,
+                    &quot;photoUrl&quot;: null,
+                    &quot;pizzeriaId&quot;: 1,
+                    &quot;price&quot;: 8.9,
+                    &quot;size&quot;: &quot;medium&quot;
+                },
+                {
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 2,
+                    &quot;ingredients&quot;: &quot;Ham, mozzarella, mushrooms&quot;,
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{&quot;content&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false},{&quot;id&quot;:2,&quot;name&quot;:&quot;Calzone Classico&quot;,&quot;ingredients&quot;:&quot;Ham, mozzarella, mushrooms&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:10.50,&quot;size&quot;:&quot;large&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:2,&quot;pageable&quot;:{&quot;offset&quot;: // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pizzeriaId=1&amp;pageable='"/>
+			<failure type="failure" message="1. Test Case ID: Ngza6v
+
+- Response violates schema
+
+    {&quot;content&quot;:[{&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:1,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;isAvailable&quot;:true,&quot;name&quot;:&quot;Margherita&quot;,&quot;photoUrl&quot;:null,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.9,&quot;size&quot;:&quot;medium&quot;},{&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:2,&quot;ingredients&quot;:&quot;Ham, mozzarella, mushrooms&quot;,&quot;isAvailable&quot;:true,&quot;name&quot;:&quot;Calzone Classico&quot;,&quot;photoUrl&quot;:null,&quot;pizzeriaId&quot;:1,&quot;price&quot;:10.5,&quot;size&quot;:&quot;large&quot;}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:2,&quot;pageable&quot;:{&quot;offset&quot;:0,&quot;pageNumber&quot;:0,&quot;pageSize&quot;:20,&quot;paged&quot;:true,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;unpaged&quot;:false},&quot;size&quot;:20,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;totalElements&quot;:2,&quot;totalPages&quot;:1} is not of type &quot;array&quot;
+
+    Schema:
+
+        {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/PizzaResponse&quot;
+            },
+            &quot;components&quot;: {
+                &quot;schemas&quot;: {
+                    &quot;PizzaResponse&quot;: {
+                        &quot;type&quot;: &quot;object&quot;,
+                        &quot;description&quot;: &quot;Pizza resource returned by the API&quot;,
+                        &quot;properties&quot;: {
+                            &quot;id&quot;: {
+                                &quot;type&quot;: &quot;integer&quot;,
+                                &quot;format&quot;: &quot;int64&quot;,
+                                &quot;description&quot;: &quot;Pizza identifier&quot;,
+                                &quot;example&quot;: 1
+                            },
+                            &quot;name&quot;: {
+                                &quot;type&quot;: &quot;string&quot;,
+            // Output truncated...
+        }
+
+    Value:
+
+        {
+            &quot;content&quot;: [
+                {
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 1,
+                    &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;,
+                    &quot;isAvailable&quot;: true,
+                    &quot;name&quot;: &quot;Margherita&quot;,
+                    &quot;photoUrl&quot;: null,
+                    &quot;pizzeriaId&quot;: 1,
+                    &quot;price&quot;: 8.9,
+                    &quot;size&quot;: &quot;medium&quot;
+                },
+                {
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 2,
+                    &quot;ingredients&quot;: &quot;Ham, mozzarella, mushrooms&quot;,
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{&quot;content&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false},{&quot;id&quot;:2,&quot;name&quot;:&quot;Calzone Classico&quot;,&quot;ingredients&quot;:&quot;Ham, mozzarella, mushrooms&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:10.50,&quot;size&quot;:&quot;large&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:2,&quot;pageable&quot;:{&quot;offset&quot;: // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pizzeriaId=1&amp;pageable='
+
+2. Test Case ID: 4PNzFx
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 400
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:59.334Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas&quot;}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=size&amp;pageable=sort&amp;x-schemathesis-unknown-property=42'
+
+3. Test Case ID: tu4Fjg
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:59.383Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas&quot;}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=size&amp;pageable=sort'"/>
+			<failure type="failure" message="1. Test Case ID: Ngza6v
+
+- Response violates schema
+
+    {&quot;content&quot;:[{&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:1,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;isAvailable&quot;:true,&quot;name&quot;:&quot;Margherita&quot;,&quot;photoUrl&quot;:null,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.9,&quot;size&quot;:&quot;medium&quot;},{&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:2,&quot;ingredients&quot;:&quot;Ham, mozzarella, mushrooms&quot;,&quot;isAvailable&quot;:true,&quot;name&quot;:&quot;Calzone Classico&quot;,&quot;photoUrl&quot;:null,&quot;pizzeriaId&quot;:1,&quot;price&quot;:10.5,&quot;size&quot;:&quot;large&quot;}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:2,&quot;pageable&quot;:{&quot;offset&quot;:0,&quot;pageNumber&quot;:0,&quot;pageSize&quot;:20,&quot;paged&quot;:true,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;unpaged&quot;:false},&quot;size&quot;:20,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;totalElements&quot;:2,&quot;totalPages&quot;:1} is not of type &quot;array&quot;
+
+    Schema:
+
+        {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/PizzaResponse&quot;
+            },
+            &quot;components&quot;: {
+                &quot;schemas&quot;: {
+                    &quot;PizzaResponse&quot;: {
+                        &quot;type&quot;: &quot;object&quot;,
+                        &quot;description&quot;: &quot;Pizza resource returned by the API&quot;,
+                        &quot;properties&quot;: {
+                            &quot;id&quot;: {
+                                &quot;type&quot;: &quot;integer&quot;,
+                                &quot;format&quot;: &quot;int64&quot;,
+                                &quot;description&quot;: &quot;Pizza identifier&quot;,
+                                &quot;example&quot;: 1
+                            },
+                            &quot;name&quot;: {
+                                &quot;type&quot;: &quot;string&quot;,
+            // Output truncated...
+        }
+
+    Value:
+
+        {
+            &quot;content&quot;: [
+                {
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 1,
+                    &quot;ingredients&quot;: &quot;Tomato, mozzarella, basil&quot;,
+                    &quot;isAvailable&quot;: true,
+                    &quot;name&quot;: &quot;Margherita&quot;,
+                    &quot;photoUrl&quot;: null,
+                    &quot;pizzeriaId&quot;: 1,
+                    &quot;price&quot;: 8.9,
+                    &quot;size&quot;: &quot;medium&quot;
+                },
+                {
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 2,
+                    &quot;ingredients&quot;: &quot;Ham, mozzarella, mushrooms&quot;,
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{&quot;content&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false},{&quot;id&quot;:2,&quot;name&quot;:&quot;Calzone Classico&quot;,&quot;ingredients&quot;:&quot;Ham, mozzarella, mushrooms&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:10.50,&quot;size&quot;:&quot;large&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:2,&quot;pageable&quot;:{&quot;offset&quot;: // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pizzeriaId=1&amp;pageable='
+
+2. Test Case ID: 4PNzFx
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 400
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:59.334Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas&quot;}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=size&amp;pageable=sort&amp;x-schemathesis-unknown-property=42'
+
+3. Test Case ID: tu4Fjg
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:21:59.383Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas&quot;}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=size&amp;pageable=sort'"/>
+		</testcase>
+		<testcase name="GET /api/pizzas/{id}" time="4.119145">
+			<failure type="failure" message="1. Test Case ID: 4yDSZB
+
+- Response violates schema
+
+    &quot;2026-06-16T19:19:13&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/createdAt:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Creation timestamp&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:19:13&quot;
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1"/>
+			<failure type="failure" message="1. Test Case ID: 4yDSZB
+
+- Response violates schema
+
+    &quot;2026-06-16T19:19:13&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/createdAt:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Creation timestamp&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:19:13&quot;
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1
+
+2. Test Case ID: OMg8v6
+
+- Server error
+
+- Undocumented HTTP status code
+
+    Received: 500
+    Documented: 200, 404
+
+[500] Internal Server Error:
+
+    `{&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Unexpected server error.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:22:00.658513542&quot;,&quot;status&quot;:500}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzas/null%2Cnull"/>
+			<failure type="failure" message="1. Test Case ID: 4yDSZB
+
+- Response violates schema
+
+    &quot;2026-06-16T19:19:13&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/createdAt:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Creation timestamp&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:19:13&quot;
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1
+
+2. Test Case ID: OMg8v6
+
+- Server error
+
+- Undocumented HTTP status code
+
+    Received: 500
+    Documented: 200, 404
+
+[500] Internal Server Error:
+
+    `{&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Unexpected server error.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:22:00.658513542&quot;,&quot;status&quot;:500}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzas/null%2Cnull
+
+3. Test Case ID: MeTcO5
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:23:17.979Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas/1&quot;}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1
+
+4. Test Case ID: IzIf6W
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: parameter `id` in path - invalid type string (expected integer)
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:23:19.053Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas/%C3%B8&quot;}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzas/%C3%B8
+
+5. Test Case ID: bISRrW
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 200, 404
+
+[400] Bad Request:
+
+    `&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;title&gt;HTTP Status 400 – Bad Request&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;HTTP Status 400 – Bad Request&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzas/%F3%8F%A0%BC%F3%9D%85%97%C3%B4%C3%BD%C2%A6%F1%85%BE%B6%C3%ABO%5C%C3%95e"/>
+		</testcase>
+		<testcase name="GET /api/pizzerias/{id}" time="4.097087">
+			<failure type="failure" message="1. Test Case ID: Njm77U
+
+- Response violates schema
+
+    &quot;2026-06-16T19:19:13&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/createdAt:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Creation timestamp&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:19:13&quot;
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias/1"/>
+			<failure type="failure" message="1. Test Case ID: Njm77U
+
+- Response violates schema
+
+    &quot;2026-06-16T19:19:13&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/createdAt:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Creation timestamp&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:19:13&quot;
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias/1
+
+2. Test Case ID: rB6I66
+
+- Server error
+
+- Undocumented HTTP status code
+
+    Received: 500
+    Documented: 200, 404
+
+[500] Internal Server Error:
+
+    `{&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Unexpected server error.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:22:01.769118994&quot;,&quot;status&quot;:500}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias/null%2Cnull"/>
+			<failure type="failure" message="1. Test Case ID: Njm77U
+
+- Response violates schema
+
+    &quot;2026-06-16T19:19:13&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/createdAt:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Creation timestamp&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:19:13&quot;
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias/1
+
+2. Test Case ID: rB6I66
+
+- Server error
+
+- Undocumented HTTP status code
+
+    Received: 500
+    Documented: 200, 404
+
+[500] Internal Server Error:
+
+    `{&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Unexpected server error.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:22:01.769118994&quot;,&quot;status&quot;:500}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias/null%2Cnull
+
+3. Test Case ID: xdMS1G
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 200, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:23:22.060Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1&quot;}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias/1
+
+4. Test Case ID: ZfO2PV
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: parameter `id` in path - invalid type string (expected integer)
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:23:22.921Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/%C3%B8&quot;}`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias/%C3%B8
+
+5. Test Case ID: wdr8bt
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 200, 404
+
+[400] Bad Request:
+
+    `&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;title&gt;HTTP Status 400 – Bad Request&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;HTTP Status 400 – Bad Request&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;`
+
+Reproduce with:
+
+    curl -X GET http://host.docker.internal:8080/api/pizzerias/%F3%8F%A0%BC%F3%9D%85%97%C3%B4%C3%BD%C2%A6%F1%85%BE%B6%C3%ABO%5C%C3%95e"/>
+		</testcase>
+		<testcase name="DELETE /api/pizzas/{id}" time="7.526542">
+			<failure type="failure" message="1. Test Case ID: KLaWnA
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzas/1"/>
+			<failure type="failure" message="1. Test Case ID: KLaWnA
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzas/1"/>
+			<failure type="failure" message="1. Test Case ID: KLaWnA
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzas/1
+
+2. Test Case ID: TBFaQr
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 204, 401, 403, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:23:26.130Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas/1&quot;}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzas/1
+
+3. Test Case ID: 6U3Xs1
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: parameter `Authorization` in header - required property removed
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:23:26.195Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzas/1&quot;}`
+
+Reproduce with:
+
+    curl -X DELETE http://host.docker.internal:8080/api/pizzas/1
+
+4. Test Case ID: uFr3E1
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 204, 401, 403, 404
+
+[400] Bad Request:
+
+    `&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;title&gt;HTTP Status 400 – Bad Request&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;HTTP Status 400 – Bad Request&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;`
+
+Reproduce with:
+
+    curl -X DELETE -H $'Authorization: Bearer Òw\x01ðêSóbs\x1c\x7f\$\x04' http://host.docker.internal:8080/api/pizzas/1
+    
+    ⚠️  Header 'Authorization' contains non-printable characters. Actual value: b'Authorization: Bearer \xc3\x92w\x01\xc3\xb0\xc2\x88\xc3\xaaS\xc3\xb3bs\x1c\x7f$\x04'"/>
+		</testcase>
+		<testcase name="DELETE /api/pizzerias/{id}" time="7.358717">
+			<failure type="failure" message="1. Test Case ID: FHnlMz
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzerias/1"/>
+			<failure type="failure" message="1. Test Case ID: FHnlMz
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzerias/1
+
+2. Test Case ID: s5D1Nx
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 204, 401, 403, 404
+
+[400] Bad Request:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:22:04.469Z&quot;,&quot;status&quot;:400,&quot;error&quot;:&quot;Bad Request&quot;,&quot;path&quot;:&quot;/api/pizzerias/%F0%AD%89%A6%F2%AC%8D%9A%F1%8C%A7%AB%C3%A7%C3%9E9%C2%B1w%19%25%F0%AB%84%81&quot;}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzerias/%F0%AD%89%A6%F2%AC%8D%9A%F1%8C%A7%AB%C3%A7%C3%9E9%C2%B1w%19%25%F0%AB%84%81"/>
+			<failure type="failure" message="1. Test Case ID: FHnlMz
+
+- JSON deserialization error
+
+    Response must be valid JSON with 'Content-Type: application/json' header:
+
+      Expecting value: line 1 column 1 (char 0)
+
+- Missing Content-Type header
+
+    The following media types are documented in the schema:
+    - `*/*`
+
+[401] Unauthorized:
+
+    &lt;EMPTY&gt;
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzerias/1
+
+2. Test Case ID: s5D1Nx
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 204, 401, 403, 404
+
+[400] Bad Request:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:22:04.469Z&quot;,&quot;status&quot;:400,&quot;error&quot;:&quot;Bad Request&quot;,&quot;path&quot;:&quot;/api/pizzerias/%F0%AD%89%A6%F2%AC%8D%9A%F1%8C%A7%AB%C3%A7%C3%9E9%C2%B1w%19%25%F0%AB%84%81&quot;}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzerias/%F0%AD%89%A6%F2%AC%8D%9A%F1%8C%A7%AB%C3%A7%C3%9E9%C2%B1w%19%25%F0%AB%84%81
+
+3. Test Case ID: nZ8A6Q
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 429
+    Documented: 204, 401, 403, 404
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:23:33.632Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1&quot;}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: Bearer ' http://host.docker.internal:8080/api/pizzerias/1
+
+4. Test Case ID: xd50U9
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 406, 422, 428, 5xx
+    Invalid component: parameter `Authorization` in header - required property removed
+
+[429] Too Many Requests:
+
+    `{&quot;timestamp&quot;:&quot;2026-06-16T19:23:33.673Z&quot;,&quot;status&quot;:429,&quot;error&quot;:&quot;Too Many Requests&quot;,&quot;path&quot;:&quot;/api/pizzerias/1&quot;}`
+
+Reproduce with:
+
+    curl -X DELETE http://host.docker.internal:8080/api/pizzerias/1
+
+5. Test Case ID: Qd23Zt
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 401, 403, 404, 409, 5xx
+
+[400] Bad Request:
+
+    `&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;title&gt;HTTP Status 400 – Bad Request&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;body {font-family:Tahoma,Arial,sans-serif;} h1, h2, h3, b {color:white;background-color:#525D76;} h1 {font-size:22px;} h2 {font-size:16px;} h3 {font-size:14px;} p {font-size:12px;} a {color:black;} .line {height:1px;background-color:#525D76;border:none;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;HTTP Status 400 – Bad Request&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;`
+
+Reproduce with:
+
+    curl -X DELETE -H $'Authorization: Bearer Òw\x01ðêSóbs\x1c\x7f\$\x04' http://host.docker.internal:8080/api/pizzerias/1
+    
+    ⚠️  Header 'Authorization' contains non-printable characters. Actual value: b'Authorization: Bearer \xc3\x92w\x01\xc3\xb0\xc2\x88\xc3\xaaS\xc3\xb3bs\x1c\x7f$\x04'"/>
+		</testcase>
+		<testcase name="Stateful tests" time="45.492373">
+			<failure type="failure" message="1. Test Case ID: LjlDft
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.055474333&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.055474333&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizza with id 806877 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.055474333&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/806877"/>
+			<failure type="failure" message="1. Test Case ID: LjlDft
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.055474333&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.055474333&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizza with id 806877 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.055474333&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/806877"/>
+			<failure type="failure" message="1. Test Case ID: LjlDft
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.055474333&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.055474333&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizza with id 806877 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.055474333&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/806877
+
+2. Test Case ID: WPKqKt
+
+- Use after free
+
+    The API did not return a `HTTP 404 Not Found` response (got `HTTP 200 OK`) for a resource that was previously deleted.
+
+    The resource was deleted with `DELETE /api/pizzas/1`
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1"/>
+			<failure type="failure" message="1. Test Case ID: LjlDft
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.055474333&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.055474333&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizza with id 806877 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.055474333&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/806877
+
+2. Test Case ID: WPKqKt
+
+- Use after free
+
+    The API did not return a `HTTP 404 Not Found` response (got `HTTP 200 OK`) for a resource that was previously deleted.
+
+    The resource was deleted with `DELETE /api/pizzas/1`
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1"/>
+			<failure type="failure" message="1. Test Case ID: LjlDft
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.055474333&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.055474333&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizza with id 806877 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.055474333&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/806877
+
+2. Test Case ID: WPKqKt
+
+- Use after free
+
+    The API did not return a `HTTP 404 Not Found` response (got `HTTP 200 OK`) for a resource that was previously deleted.
+
+    The resource was deleted with `DELETE /api/pizzas/1`
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1"/>
+			<failure type="failure" message="1. Test Case ID: LjlDft
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.055474333&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.055474333&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizza with id 806877 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.055474333&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/806877
+
+2. Test Case ID: WPKqKt
+
+- Use after free
+
+    The API did not return a `HTTP 404 Not Found` response (got `HTTP 200 OK`) for a resource that was previously deleted.
+
+    The resource was deleted with `DELETE /api/pizzas/1`
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1
+
+3. Test Case ID: uchgSk
+
+- Response violates schema
+
+    {&quot;content&quot;:[{&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;staffSubjects&quot;:null},{&quot;address&quot;:&quot;Avenida da Liberdade 22, Lisboa&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:2,&quot;name&quot;:&quot;Roma Antica&quot;,&quot;phone&quot;:&quot;+351 210 200 200&quot;,&quot;staffSubjects&quot;:null},{&quot;address&quot;:&quot;Praça do Mercado 5, Coimbra&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:3,&quot;name&quot;:&quot;Sicilia Slice&quot;,&quot;phone&quot;:&quot;+351 239 300 300&quot;,&quot;staffSubjects&quot;:null}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:3,&quot;pageable&quot;:{&quot;offset&quot;:0,&quot;pageNumber&quot;:0,&quot;pageSize&quot;:20,&quot;paged&quot;:true,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;unpaged&quot;:false},&quot;size&quot;:20,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;totalElements&quot;:3,&quot;totalPages&quot;:1} is not of type &quot;array&quot;
+
+    Schema:
+
+        {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/PizzeriaResponse&quot;
+            },
+            &quot;components&quot;: {
+                &quot;schemas&quot;: {
+                    &quot;PizzeriaResponse&quot;: {
+                        &quot;type&quot;: &quot;object&quot;,
+                        &quot;description&quot;: &quot;Pizzeria resource returned by the API&quot;,
+                        &quot;properties&quot;: {
+                            &quot;id&quot;: {
+                                &quot;type&quot;: &quot;integer&quot;,
+                                &quot;format&quot;: &quot;int64&quot;,
+                                &quot;description&quot;: &quot;Pizzeria identifier&quot;,
+                                &quot;example&quot;: 1
+                            },
+                            &quot;name&quot;: {
+                                &quot;type&quot;: &quot;string&quot;,
+            // Output truncated...
+        }
+
+    Value:
+
+        {
+            &quot;content&quot;: [
+                {
+                    &quot;address&quot;: &quot;Rua das Flores 10, Porto&quot;,
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;Napoli Centro&quot;,
+                    &quot;phone&quot;: &quot;+351 220 100 100&quot;,
+                    &quot;staffSubjects&quot;: null
+                },
+                {
+                    &quot;address&quot;: &quot;Avenida da Liberdade 22, Lisboa&quot;,
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;Roma Antica&quot;,
+                    &quot;phone&quot;: &quot;+351 210 200 200&quot;,
+                    &quot;staffSubjects&quot;: null
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{&quot;content&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null},{&quot;id&quot;:2,&quot;name&quot;:&quot;Roma Antica&quot;,&quot;address&quot;:&quot;Avenida da Liberdade 22, Lisboa&quot;,&quot;phone&quot;:&quot;+351 210 200 200&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null},{&quot;id&quot;:3,&quot;name&quot;:&quot;Sicilia Slice&quot;,&quot;address&quot;:&quot;Praça do Mercado 5, Coimbra&quot;,&quot;phone&quot;:&quot;+351 239 300 300&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubject // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzerias?pageable='"/>
+			<failure type="failure" message="1. Test Case ID: LjlDft
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.055474333&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.055474333&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizza with id 806877 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.055474333&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/806877
+
+2. Test Case ID: WPKqKt
+
+- Use after free
+
+    The API did not return a `HTTP 404 Not Found` response (got `HTTP 200 OK`) for a resource that was previously deleted.
+
+    The resource was deleted with `DELETE /api/pizzas/1`
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1
+
+3. Test Case ID: uchgSk
+
+- Response violates schema
+
+    {&quot;content&quot;:[{&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;staffSubjects&quot;:null},{&quot;address&quot;:&quot;Avenida da Liberdade 22, Lisboa&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:2,&quot;name&quot;:&quot;Roma Antica&quot;,&quot;phone&quot;:&quot;+351 210 200 200&quot;,&quot;staffSubjects&quot;:null},{&quot;address&quot;:&quot;Praça do Mercado 5, Coimbra&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:3,&quot;name&quot;:&quot;Sicilia Slice&quot;,&quot;phone&quot;:&quot;+351 239 300 300&quot;,&quot;staffSubjects&quot;:null}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:3,&quot;pageable&quot;:{&quot;offset&quot;:0,&quot;pageNumber&quot;:0,&quot;pageSize&quot;:20,&quot;paged&quot;:true,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;unpaged&quot;:false},&quot;size&quot;:20,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;totalElements&quot;:3,&quot;totalPages&quot;:1} is not of type &quot;array&quot;
+
+    Schema:
+
+        {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/PizzeriaResponse&quot;
+            },
+            &quot;components&quot;: {
+                &quot;schemas&quot;: {
+                    &quot;PizzeriaResponse&quot;: {
+                        &quot;type&quot;: &quot;object&quot;,
+                        &quot;description&quot;: &quot;Pizzeria resource returned by the API&quot;,
+                        &quot;properties&quot;: {
+                            &quot;id&quot;: {
+                                &quot;type&quot;: &quot;integer&quot;,
+                                &quot;format&quot;: &quot;int64&quot;,
+                                &quot;description&quot;: &quot;Pizzeria identifier&quot;,
+                                &quot;example&quot;: 1
+                            },
+                            &quot;name&quot;: {
+                                &quot;type&quot;: &quot;string&quot;,
+            // Output truncated...
+        }
+
+    Value:
+
+        {
+            &quot;content&quot;: [
+                {
+                    &quot;address&quot;: &quot;Rua das Flores 10, Porto&quot;,
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;Napoli Centro&quot;,
+                    &quot;phone&quot;: &quot;+351 220 100 100&quot;,
+                    &quot;staffSubjects&quot;: null
+                },
+                {
+                    &quot;address&quot;: &quot;Avenida da Liberdade 22, Lisboa&quot;,
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;Roma Antica&quot;,
+                    &quot;phone&quot;: &quot;+351 210 200 200&quot;,
+                    &quot;staffSubjects&quot;: null
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{&quot;content&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null},{&quot;id&quot;:2,&quot;name&quot;:&quot;Roma Antica&quot;,&quot;address&quot;:&quot;Avenida da Liberdade 22, Lisboa&quot;,&quot;phone&quot;:&quot;+351 210 200 200&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null},{&quot;id&quot;:3,&quot;name&quot;:&quot;Sicilia Slice&quot;,&quot;address&quot;:&quot;Praça do Mercado 5, Coimbra&quot;,&quot;phone&quot;:&quot;+351 239 300 300&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubject // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzerias?pageable='
+
+4. Test Case ID: y2MgAk
+
+- Server error
+
+- Undocumented HTTP status code
+
+    Received: 500
+    Documented: 200, 400
+
+[500] Internal Server Error:
+
+    `{&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Unexpected server error.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.565036208&quot;,&quot;status&quot;:500}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pizzeriaId=3&amp;=null'"/>
+			<failure type="failure" message="1. Test Case ID: LjlDft
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.055474333&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.055474333&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizza with id 806877 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.055474333&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/806877
+
+2. Test Case ID: WPKqKt
+
+- Use after free
+
+    The API did not return a `HTTP 404 Not Found` response (got `HTTP 200 OK`) for a resource that was previously deleted.
+
+    The resource was deleted with `DELETE /api/pizzas/1`
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1
+
+3. Test Case ID: uchgSk
+
+- Response violates schema
+
+    {&quot;content&quot;:[{&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;staffSubjects&quot;:null},{&quot;address&quot;:&quot;Avenida da Liberdade 22, Lisboa&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:2,&quot;name&quot;:&quot;Roma Antica&quot;,&quot;phone&quot;:&quot;+351 210 200 200&quot;,&quot;staffSubjects&quot;:null},{&quot;address&quot;:&quot;Praça do Mercado 5, Coimbra&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:3,&quot;name&quot;:&quot;Sicilia Slice&quot;,&quot;phone&quot;:&quot;+351 239 300 300&quot;,&quot;staffSubjects&quot;:null}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:3,&quot;pageable&quot;:{&quot;offset&quot;:0,&quot;pageNumber&quot;:0,&quot;pageSize&quot;:20,&quot;paged&quot;:true,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;unpaged&quot;:false},&quot;size&quot;:20,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;totalElements&quot;:3,&quot;totalPages&quot;:1} is not of type &quot;array&quot;
+
+    Schema:
+
+        {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/PizzeriaResponse&quot;
+            },
+            &quot;components&quot;: {
+                &quot;schemas&quot;: {
+                    &quot;PizzeriaResponse&quot;: {
+                        &quot;type&quot;: &quot;object&quot;,
+                        &quot;description&quot;: &quot;Pizzeria resource returned by the API&quot;,
+                        &quot;properties&quot;: {
+                            &quot;id&quot;: {
+                                &quot;type&quot;: &quot;integer&quot;,
+                                &quot;format&quot;: &quot;int64&quot;,
+                                &quot;description&quot;: &quot;Pizzeria identifier&quot;,
+                                &quot;example&quot;: 1
+                            },
+                            &quot;name&quot;: {
+                                &quot;type&quot;: &quot;string&quot;,
+            // Output truncated...
+        }
+
+    Value:
+
+        {
+            &quot;content&quot;: [
+                {
+                    &quot;address&quot;: &quot;Rua das Flores 10, Porto&quot;,
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;Napoli Centro&quot;,
+                    &quot;phone&quot;: &quot;+351 220 100 100&quot;,
+                    &quot;staffSubjects&quot;: null
+                },
+                {
+                    &quot;address&quot;: &quot;Avenida da Liberdade 22, Lisboa&quot;,
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;Roma Antica&quot;,
+                    &quot;phone&quot;: &quot;+351 210 200 200&quot;,
+                    &quot;staffSubjects&quot;: null
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{&quot;content&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null},{&quot;id&quot;:2,&quot;name&quot;:&quot;Roma Antica&quot;,&quot;address&quot;:&quot;Avenida da Liberdade 22, Lisboa&quot;,&quot;phone&quot;:&quot;+351 210 200 200&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null},{&quot;id&quot;:3,&quot;name&quot;:&quot;Sicilia Slice&quot;,&quot;address&quot;:&quot;Praça do Mercado 5, Coimbra&quot;,&quot;phone&quot;:&quot;+351 239 300 300&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubject // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzerias?pageable='
+
+4. Test Case ID: y2MgAk
+
+- Server error
+
+- Undocumented HTTP status code
+
+    Received: 500
+    Documented: 200, 400
+
+[500] Internal Server Error:
+
+    `{&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Unexpected server error.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.565036208&quot;,&quot;status&quot;:500}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pizzeriaId=3&amp;=null'"/>
+			<failure type="failure" message="1. Test Case ID: LjlDft
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.055474333&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.055474333&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizza with id 806877 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.055474333&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/806877
+
+2. Test Case ID: WPKqKt
+
+- Use after free
+
+    The API did not return a `HTTP 404 Not Found` response (got `HTTP 200 OK`) for a resource that was previously deleted.
+
+    The resource was deleted with `DELETE /api/pizzas/1`
+
+[200] OK:
+
+    `{&quot;id&quot;:1,&quot;name&quot;:&quot;Margherita&quot;,&quot;ingredients&quot;:&quot;Tomato, mozzarella, basil&quot;,&quot;pizzeriaId&quot;:1,&quot;price&quot;:8.90,&quot;size&quot;:&quot;medium&quot;,&quot;isAvailable&quot;:true,&quot;photoUrl&quot;:null,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pageable=page&amp;pageable=%14%E5%B5%9D&amp;pageable=sort&amp;pizzeriaId=-246'
+    curl -X GET http://host.docker.internal:8080/api/pizzas/1
+
+3. Test Case ID: uchgSk
+
+- Response violates schema
+
+    {&quot;content&quot;:[{&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;staffSubjects&quot;:null},{&quot;address&quot;:&quot;Avenida da Liberdade 22, Lisboa&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:2,&quot;name&quot;:&quot;Roma Antica&quot;,&quot;phone&quot;:&quot;+351 210 200 200&quot;,&quot;staffSubjects&quot;:null},{&quot;address&quot;:&quot;Praça do Mercado 5, Coimbra&quot;,&quot;canEdit&quot;:false,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;id&quot;:3,&quot;name&quot;:&quot;Sicilia Slice&quot;,&quot;phone&quot;:&quot;+351 239 300 300&quot;,&quot;staffSubjects&quot;:null}],&quot;empty&quot;:false,&quot;first&quot;:true,&quot;last&quot;:true,&quot;number&quot;:0,&quot;numberOfElements&quot;:3,&quot;pageable&quot;:{&quot;offset&quot;:0,&quot;pageNumber&quot;:0,&quot;pageSize&quot;:20,&quot;paged&quot;:true,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;unpaged&quot;:false},&quot;size&quot;:20,&quot;sort&quot;:{&quot;empty&quot;:false,&quot;sorted&quot;:true,&quot;unsorted&quot;:false},&quot;totalElements&quot;:3,&quot;totalPages&quot;:1} is not of type &quot;array&quot;
+
+    Schema:
+
+        {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+                &quot;$ref&quot;: &quot;#/components/schemas/PizzeriaResponse&quot;
+            },
+            &quot;components&quot;: {
+                &quot;schemas&quot;: {
+                    &quot;PizzeriaResponse&quot;: {
+                        &quot;type&quot;: &quot;object&quot;,
+                        &quot;description&quot;: &quot;Pizzeria resource returned by the API&quot;,
+                        &quot;properties&quot;: {
+                            &quot;id&quot;: {
+                                &quot;type&quot;: &quot;integer&quot;,
+                                &quot;format&quot;: &quot;int64&quot;,
+                                &quot;description&quot;: &quot;Pizzeria identifier&quot;,
+                                &quot;example&quot;: 1
+                            },
+                            &quot;name&quot;: {
+                                &quot;type&quot;: &quot;string&quot;,
+            // Output truncated...
+        }
+
+    Value:
+
+        {
+            &quot;content&quot;: [
+                {
+                    &quot;address&quot;: &quot;Rua das Flores 10, Porto&quot;,
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;Napoli Centro&quot;,
+                    &quot;phone&quot;: &quot;+351 220 100 100&quot;,
+                    &quot;staffSubjects&quot;: null
+                },
+                {
+                    &quot;address&quot;: &quot;Avenida da Liberdade 22, Lisboa&quot;,
+                    &quot;canEdit&quot;: false,
+                    &quot;createdAt&quot;: &quot;2026-06-16T19:19:13&quot;,
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;Roma Antica&quot;,
+                    &quot;phone&quot;: &quot;+351 210 200 200&quot;,
+                    &quot;staffSubjects&quot;: null
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{&quot;content&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;Napoli Centro&quot;,&quot;address&quot;:&quot;Rua das Flores 10, Porto&quot;,&quot;phone&quot;:&quot;+351 220 100 100&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null},{&quot;id&quot;:2,&quot;name&quot;:&quot;Roma Antica&quot;,&quot;address&quot;:&quot;Avenida da Liberdade 22, Lisboa&quot;,&quot;phone&quot;:&quot;+351 210 200 200&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubjects&quot;:null},{&quot;id&quot;:3,&quot;name&quot;:&quot;Sicilia Slice&quot;,&quot;address&quot;:&quot;Praça do Mercado 5, Coimbra&quot;,&quot;phone&quot;:&quot;+351 239 300 300&quot;,&quot;createdAt&quot;:&quot;2026-06-16T19:19:13&quot;,&quot;canEdit&quot;:false,&quot;staffSubject // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzerias?pageable='
+
+4. Test Case ID: y2MgAk
+
+- Server error
+
+- Undocumented HTTP status code
+
+    Received: 500
+    Documented: 200, 400
+
+[500] Internal Server Error:
+
+    `{&quot;error&quot;:&quot;Internal Server Error&quot;,&quot;message&quot;:&quot;Unexpected server error.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.565036208&quot;,&quot;status&quot;:500}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzas?pizzeriaId=3&amp;=null'
+
+5. Test Case ID: P0Lcpm
+
+- Response violates schema
+
+    &quot;2026-06-16T19:24:00.664540722&quot; is not a &quot;date-time&quot;
+
+    Schema at /properties/timestamp:
+
+        {
+            &quot;format&quot;: &quot;date-time&quot;,
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;description&quot;: &quot;Time when the error was generated&quot;,
+            &quot;example&quot;: &quot;2026-02-23T10:45:12.345&quot;
+        }
+
+    Value:
+
+        &quot;2026-06-16T19:24:00.664540722&quot;
+
+[404] Not Found:
+
+    `{&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;Pizzeria with id 93947 was not found.&quot;,&quot;timestamp&quot;:&quot;2026-06-16T19:24:00.664540722&quot;,&quot;status&quot;:404}`
+
+Reproduce with:
+
+    curl -X GET 'http://host.docker.internal:8080/api/pizzerias?pageable='
+    curl -X GET http://host.docker.internal:8080/api/pizzerias/93947"/>
+		</testcase>
+	</testsuite>
+</testsuites>
