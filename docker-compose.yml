@@ -1,0 +1,123 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: pizzagate-mysql
+    environment:
+      MYSQL_DATABASE: pizzagate
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    # No host port mapping: MySQL is reachable only from other containers on
+    # the compose network (as `mysql:3306`), never directly from the host
+    # (AS-05 — Direct Database Access via Exposed Port).
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    container_name: pizzagate-keycloak
+    command: start-dev --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      # Externally, Keycloak is now reached ONLY through the perimeter WAF at
+      # https://localhost/realms/pizzagate/... — same origin as the SPA and
+      # the backend (see perimeter/default.conf "Identity Provider" location
+      # blocks, and perimeter/README.md "Tuning log" for why this matters:
+      # browsers block fetch() from an https:// page to an http:// endpoint
+      # as mixed content, which is what broke the token exchange before this
+      # change). KC_HOSTNAME pins Keycloak's own idea of its public URL so the
+      # `iss` claim and discovery-document URLs it issues match what the WAF
+      # presents; KC_PROXY_HEADERS makes it trust the WAF's X-Forwarded-* to
+      # know it's being reverse-proxied over TLS even though the WAF->Keycloak
+      # hop on the internal docker network is plain HTTP.
+      KC_HOSTNAME: https://localhost
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+      KC_PROXY_HEADERS: xforwarded
+      KC_HTTP_ENABLED: "true"
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
+
+  backend:
+    build:
+      context: ./backend/Pizzagate
+      dockerfile: Dockerfile
+    container_name: pizzagate-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/pizzagate?useSSL=true&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+      SERVER_PORT: 8080
+      # Must match the `iss` claim Keycloak now embeds in tokens, which in
+      # turn must match its own externally-visible identity (KC_HOSTNAME
+      # above) — https://localhost/realms/pizzagate, reached via the WAF.
+      OAUTH2_ISSUER_URI: https://localhost/realms/pizzagate
+      OAUTH2_JWK_SET_URI: http://keycloak:8080/realms/pizzagate/protocol/openid-connect/certs
+      APP_CORS_ALLOWED_ORIGINS: https://localhost,http://localhost:5173,http://localhost:3000
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      keycloak:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./frontend/Pizzagate
+      dockerfile: Dockerfile
+      args:
+        # Relative/same-origin API base — required so that ALL frontend->backend
+        # traffic flows through the perimeter WAF (single PEP, Zero Trust §4/§5).
+        # A hardcoded absolute URL here would make the SPA call the backend
+        # directly, bypassing the WAF (and tripping the perimeter's CSP as a
+        # cross-origin + mixed-content request once TLS termination is in place).
+        VITE_API_BASE_URL: ""
+        # Same reasoning, applied to the IdP: Keycloak is now proxied through
+        # the WAF at /realms/ (see perimeter/default.conf), so the SPA must
+        # address it via that same-origin HTTPS path — NOT its direct
+        # http://localhost:8090 port, which a browser refuses to fetch() from
+        # an https:// page (mixed content; see perimeter/README.md "Tuning log").
+        VITE_OIDC_ISSUER: https://localhost/realms/pizzagate
+    container_name: pizzagate-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:8080"
+
+  # Perimeter reverse proxy + WAF (Part 2 §4 — Perimeter Defense).
+  # Single TLS-terminating entry point in front of frontend + backend:
+  # OWASP CRS v4 in blocking mode, security headers, and IP-based rate
+  # limiting all happen here, before traffic reaches the application.
+  waf:
+    image: owasp/modsecurity-crs:nginx-alpine
+    container_name: pizzagate-waf
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      # Host port 80 is already bound by an unrelated local k3d cluster, so
+      # the HTTP->HTTPS redirect listener is published on 8081 instead.
+      # 443 is free and is the primary entry point for the stack.
+      - "443:8443"
+      - "8081:8080"
+    volumes:
+      - ./perimeter/default.conf:/etc/nginx/templates/conf.d/default.conf.template:ro
+      - ./perimeter/modsecurity-override.conf:/etc/nginx/templates/modsecurity.d/modsecurity-override.conf.template:ro
+      - ./perimeter/ssl/dev.crt:/etc/nginx/conf/server.crt:ro
+      - ./perimeter/ssl/dev.key:/etc/nginx/conf/server.key:ro
+    environment:
+      PARANOIA: "1"
+      BLOCKING_PARANOIA: "1"
+      ANOMALY_INBOUND: "5"
+      ANOMALY_OUTBOUND: "4"
+
+volumes:
+  mysql_data:

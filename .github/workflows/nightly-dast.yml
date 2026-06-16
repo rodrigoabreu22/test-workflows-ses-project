@@ -1,0 +1,173 @@
+name: Nightly DAST
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - test/dast
+
+jobs:
+  nightly-dast:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      # System code is in the repo itself — no separate checkout required.
+      APP_REPO_DIR: ${{ github.workspace }}
+      APP_COMPOSE_FILE: ${{ github.workspace }}/docker-compose.yml
+      DAST_ROOT: ${{ github.workspace }}/dast
+      COMPOSE_PROJECT_NAME: nightly-dast
+      GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
+      ZAP_FRONTEND_MODE: full
+      ZAP_API_TIMEOUT: 25m
+      ZAP_API_MAX_TIME_MINUTES: 20
+      ZAP_FRONTEND_TIMEOUT: 30m
+      ZAP_FRONTEND_SPIDER_MINUTES: 5
+      ZAP_FRONTEND_MAX_TIME_MINUTES: 20
+      SCHEMATHESIS_MAX_EXAMPLES: 500
+      SCHEMATHESIS_MAX_FAILURES: 250
+      SCHEMATHESIS_REQUEST_TIMEOUT: 15
+      SCHEMATHESIS_MAX_RESPONSE_TIME: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # Generate throwaway credentials at runtime so nothing is hardcoded.
+      # The values are ephemeral and discarded with the runner.
+      - name: Create .env for CI
+        run: |
+          DB_PASS="$(openssl rand -hex 20)"
+          DB_ROOT_PASS="$(openssl rand -hex 20)"
+          printf 'MYSQL_USER=pizzauser\nMYSQL_PASSWORD=%s\nMYSQL_ROOT_PASSWORD=%s\n' \
+            "${DB_PASS}" "${DB_ROOT_PASS}" > "${{ github.workspace }}/.env"
+
+      - name: Prepare DAST outputs
+        run: |
+          source "${DAST_ROOT}/scripts/common.sh"
+          clean_generated
+          clean_results
+          ensure_dirs
+
+      - name: Start application stack
+        run: |
+          source "${DAST_ROOT}/scripts/common.sh"
+          start_app_stack
+
+      - name: Wait for API
+        run: bash "${DAST_ROOT}/scripts/wait-for-api.sh"
+
+      - name: Wait for frontend
+        run: bash "${DAST_ROOT}/scripts/wait-for-frontend.sh"
+
+      - name: Export OpenAPI
+        run: bash "${DAST_ROOT}/scripts/export-openapi.sh"
+
+      - name: Prepare Schemathesis image
+        run: bash "${DAST_ROOT}/scripts/build-schemathesis-image.sh"
+
+      - name: Run ZAP API Scan
+        continue-on-error: true
+        run: bash "${DAST_ROOT}/scripts/run-zap-api.sh"
+
+      - name: Run ZAP Frontend Full Scan
+        continue-on-error: true
+        run: bash "${DAST_ROOT}/scripts/run-zap-frontend.sh"
+
+      - name: Run Schemathesis Nightly Profile
+        continue-on-error: true
+        run: bash "${DAST_ROOT}/scripts/run-schemathesis.sh"
+
+      - name: Build findings manifest
+        run: python3 "${DAST_ROOT}/scripts/build-findings-manifest.py"
+
+      - name: Build LLM analysis input
+        run: python3 "${DAST_ROOT}/scripts/build-llm-analysis-input.py"
+
+      - name: Warn when GEMINI_KEY is missing
+        if: ${{ env.GEMINI_KEY == '' }}
+        run: echo "::warning::GEMINI_KEY is not set. Skipping Gemini analysis."
+
+      - name: Smoke test Gemini API
+        if: ${{ env.GEMINI_KEY != '' }}
+        continue-on-error: true
+        run: |
+          python3 "${DAST_ROOT}/scripts/test-gemini-api.py" \
+            --prompt "Reply with exactly: GEMINI_OK"
+
+      - name: Generate findings table with Gemini
+        if: ${{ env.GEMINI_KEY != '' }}
+        continue-on-error: true
+        run: python3 "${DAST_ROOT}/scripts/run-llm-analysis.py"
+
+      - name: Render LLM HTML report
+        if: ${{ always() && hashFiles('dast/results/llm/findings_table.json') != '' }}
+        run: python3 "${DAST_ROOT}/scripts/render-llm-report.py"
+
+      - name: Evaluate nightly findings and required artifacts
+        run: |
+          python3 "${DAST_ROOT}/scripts/evaluate-findings.py" \
+            "${DAST_ROOT}/results/llm/scan_manifest.json" \
+            --require-file "${DAST_ROOT}/generated/openapi.json" \
+            --require-file "${DAST_ROOT}/results/zap/api/report.json" \
+            --require-file "${DAST_ROOT}/results/zap/frontend/report.json" \
+            --require-file "${DAST_ROOT}/results/schemathesis/junit.xml" \
+            --require-file "${DAST_ROOT}/results/llm/analysis_input.json"
+
+      - name: Upload DAST artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-dast-results
+          path: |
+            dast/generated
+            dast/results
+          retention-days: 14
+
+      - name: Replace last_results directory
+        if: always()
+        run: |
+          rm -rf "${{ github.workspace }}/last_results"
+          mkdir -p \
+            "${{ github.workspace }}/last_results/generated" \
+            "${{ github.workspace }}/last_results/results/zap/api" \
+            "${{ github.workspace }}/last_results/results/zap/frontend" \
+            "${{ github.workspace }}/last_results/results/schemathesis" \
+            "${{ github.workspace }}/last_results/results/llm"
+
+          cp "${DAST_ROOT}/generated/openapi.json"             "${{ github.workspace }}/last_results/generated/openapi.json"
+          cp "${DAST_ROOT}/results/zap/api/report.json"        "${{ github.workspace }}/last_results/results/zap/api/report.json"
+          cp "${DAST_ROOT}/results/zap/api/report.html"        "${{ github.workspace }}/last_results/results/zap/api/report.html"
+          cp "${DAST_ROOT}/results/zap/frontend/report.json"   "${{ github.workspace }}/last_results/results/zap/frontend/report.json"
+          cp "${DAST_ROOT}/results/zap/frontend/report.html"   "${{ github.workspace }}/last_results/results/zap/frontend/report.html"
+          cp "${DAST_ROOT}/results/schemathesis/junit.xml"     "${{ github.workspace }}/last_results/results/schemathesis/junit.xml"
+          cp "${DAST_ROOT}/results/llm/scan_manifest.json"     "${{ github.workspace }}/last_results/results/llm/scan_manifest.json"
+          cp "${DAST_ROOT}/results/llm/analysis_input.json"    "${{ github.workspace }}/last_results/results/llm/analysis_input.json"
+
+          if [ -f "${DAST_ROOT}/results/llm/findings_table.json" ]; then
+            cp "${DAST_ROOT}/results/llm/findings_table.json" "${{ github.workspace }}/last_results/results/llm/findings_table.json"
+          fi
+          if [ -f "${DAST_ROOT}/results/llm/findings_table.html" ]; then
+            cp "${DAST_ROOT}/results/llm/findings_table.html" "${{ github.workspace }}/last_results/results/llm/findings_table.html"
+          fi
+
+      - name: Commit last_results to repo
+        if: always()
+        run: |
+          commit_date="$(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A last_results
+          if git diff --cached --quiet; then
+            echo "No changes in last_results to commit."
+            exit 0
+          fi
+          git commit -m "Update last_results from nightly DAST (${commit_date})"
+          git push origin HEAD:${GITHUB_REF_NAME}
+
+      - name: Stop application stack
+        if: always()
+        run: |
+          source "${DAST_ROOT}/scripts/common.sh"
+          stop_app_stack

@@ -1,0 +1,153 @@
+{
+  "realm": "pizzagate",
+  "enabled": true,
+  "displayName": "Pizzagate",
+  "registrationAllowed": false,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 28800,
+  "revokeRefreshToken": true,
+  "refreshTokenMaxReuse": 0,
+  "roles": {
+    "realm": [
+      {
+        "name": "CUSTOMER",
+        "description": "Can read catalog resources"
+      },
+      {
+        "name": "PIZZERIA_OWNER",
+        "description": "Can manage owned pizzerias and pizzas"
+      },
+      {
+        "name": "PIZZERIA_STAFF",
+        "description": "Can manage pizzas for an assigned pizzeria, but not the pizzeria itself"
+      },
+      {
+        "name": "ADMIN",
+        "description": "Can administer every resource"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "pizzagate-spa",
+      "name": "Pizzagate SPA",
+      "enabled": true,
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "http://localhost:5173/*",
+        "http://localhost:3000/*",
+        "https://localhost/*"
+      ],
+      "webOrigins": [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://localhost"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:5173/*##http://localhost:3000/*##https://localhost/*"
+      }
+    }
+  ],
+  "users": [
+    {
+      "username": "owner-a",
+      "enabled": true,
+      "firstName": "Owner",
+      "lastName": "A",
+      "email": "owner-a@example.test",
+      "emailVerified": true,
+      "requiredActions": [],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "owner-a-pass",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "PIZZERIA_OWNER"
+      ]
+    },
+    {
+      "username": "owner-b",
+      "enabled": true,
+      "firstName": "Owner",
+      "lastName": "B",
+      "email": "owner-b@example.test",
+      "emailVerified": true,
+      "requiredActions": [],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "owner-b-pass",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "PIZZERIA_OWNER"
+      ]
+    },
+    {
+      "username": "staff-a",
+      "enabled": true,
+      "firstName": "Staff",
+      "lastName": "A",
+      "email": "staff-a@example.test",
+      "emailVerified": true,
+      "requiredActions": [],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "staff-a-pass",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "PIZZERIA_STAFF"
+      ]
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@example.test",
+      "emailVerified": true,
+      "requiredActions": [],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin-pass",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ADMIN"
+      ]
+    },
+    {
+      "username": "customer",
+      "enabled": true,
+      "firstName": "Customer",
+      "lastName": "User",
+      "email": "customer@example.test",
+      "emailVerified": true,
+      "requiredActions": [],
+      "credentials": [
+        {
+          "type": "password",
+          "value": "customer-pass",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "CUSTOMER"
+      ]
+    }
+  ]
+}
